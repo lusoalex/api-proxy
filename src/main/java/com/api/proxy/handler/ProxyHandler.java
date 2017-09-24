@@ -74,11 +74,7 @@ public class ProxyHandler {
 
         incomingRequest.handler(requestToSend::write);//propage body (pour autre que GET)
 
-        //I did not fully understand why...
-        incomingRequest.endHandler(event -> {
-            requestToSend.end();
-            log.info("incomingRequest.endHandler method called.");
-        });
-
+        //Once ok with the incoming request, proceed the proxy (request to send)
+        incomingRequest.endHandler(event -> requestToSend.end());
     }
 }
